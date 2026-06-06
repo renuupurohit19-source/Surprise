@@ -146,20 +146,20 @@ html, body { width:100%; height:100%; overflow:hidden; font-family:'Cormorant Ga
 @keyframes bounce { 0%,100%{transform:translateY(0) rotate(-5deg);} 50%{transform:translateY(-18px) rotate(5deg);} }
 
 /* SCREEN 4 – MEMORIES */
+#s4 { justify-content:flex-start; padding-top:30px; padding-bottom:60px; }
 #s4 .inner { text-align:center; max-width:680px; width:100%; }
-.pol-grid { display:grid; grid-template-columns:1fr; gap:20px; margin:22px 0; width:100%; }
-@media(min-width:560px){ .pol-grid{grid-template-columns:repeat(2,1fr);} }
-@media(min-width:820px){ .pol-grid{grid-template-columns:repeat(3,1fr);} }
+.pol-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:16px 0; width:100%; }
+@media(min-width:700px){ .pol-grid{grid-template-columns:repeat(3,1fr);gap:20px;} }
 .pol {
-  background:#fff; border-radius:3px; padding:12px 12px 40px;
+  background:#fff; border-radius:3px; padding:10px 10px 36px;
   box-shadow:0 8px 30px rgba(180,120,140,.18);
-  transform:rotate(var(--r,-2deg)) translateY(40px);
+  transform:rotate(var(--r,-2deg)) translateY(20px);
   opacity:0; transition:all .7s cubic-bezier(.34,1.2,.64,1); position:relative;
 }
 .pol.show { opacity:1; transform:rotate(var(--r,-2deg)) translateY(0); }
-.pol:hover { transform:rotate(0deg) translateY(-8px) scale(1.04) !important; box-shadow:0 20px 55px rgba(180,120,140,.3) !important; z-index:10; }
-.pol .photo-placeholder { width:100%; aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:60px; border-radius:2px; }
-.pol .cap { font-family:'Dancing Script',cursive; font-size:15px; color:#8a6070; text-align:center; position:absolute; bottom:10px; left:0; right:0; }
+.pol:hover { transform:rotate(0deg) translateY(-6px) scale(1.03) !important; box-shadow:0 16px 40px rgba(180,120,140,.3) !important; z-index:10; }
+.pol .photo-placeholder { width:100%; aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:clamp(36px,10vw,60px); border-radius:2px; }
+.pol .cap { font-family:'Dancing Script',cursive; font-size:clamp(12px,2.8vw,15px); color:#8a6070; text-align:center; position:absolute; bottom:8px; left:0; right:0; }
 
 /* SCREEN 5 – CAKE */
 #s5 .inner { text-align:center; max-width:440px; }
@@ -208,11 +208,20 @@ html, body { width:100%; height:100%; overflow:hidden; font-family:'Cormorant Ga
 .dot.on { background:var(--rose); transform:scale(1.3); }
 
 /* Children fade in with the screen */
+
+/* WATERMARK */
+#watermark {
+  position:fixed; bottom:10px; right:14px; z-index:200;
+  font-family:'Cormorant Garamond',serif; font-size:11px;
+  color:rgba(180,120,140,.4); letter-spacing:.6px;
+  pointer-events:none; user-select:none; font-style:italic;
+}
 </style>
 </head>
 <body>
 
 <div id="floatLayer"></div>
+<div id="watermark">✦ velours.in</div>
 <canvas id="confCanvas"></canvas>
 
 <div id="unlockOverlay">
@@ -274,15 +283,15 @@ html, body { width:100%; height:100%; overflow:hidden; font-family:'Cormorant Ga
     <button class="btn btn-pink" id="memBtn" onclick="revealMemory()">Reveal Memory 1 📸</button>
     <div class="pol-grid" id="polGrid">
       <div class="pol" id="p0" style="--r:-2.5deg">
-        <img src="image/photo1.jpg.jpeg" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:2px;">
-        <span class="cap">I Love You 💕</span>
+        <img src="image/photo1.jpg.jpeg" alt="Memory 1" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:2px;">
+        <span class="cap">I love you 💕</span>
       </div>
       <div class="pol" id="p1" style="--r:1.8deg">
-        <img src="image/photo2.jpg.jpeg" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:2px;">
+         <img src="image/photo2.jpg.jpeg" alt="Memory 1" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:2px;">
         <span class="cap">Magic moments 🌸</span>
       </div>
       <div class="pol" id="p2" style="--r:-1.2deg">
-        <img src="image/photo3.jpg.jpeg" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:2px;">
+         <img src="image/photo3.jpg.jpeg" alt="Memory 1" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:2px;">
         <span class="cap">Forever &amp; always ✨</span>
       </div>
     </div>
@@ -372,6 +381,7 @@ html, body { width:100%; height:100%; overflow:hidden; font-family:'Cormorant Ga
       <div class="wave-bars" id="waveBars"></div>
       <button class="btn btn-pink" id="playBtn" onclick="toggleMusic()" style="margin-bottom:8px">▶ Play Our Song</button>
     </div>
+    <p class="sub" style="font-size:13px;margin-top:8px">🎵 Add your MP3 file as <em>music/perfect.mp3</em> to play your song</p>
     <button class="btn btn-soft" onclick="goNext()" style="margin-top:20px">Continue →</button>
   </div>
 </div>
@@ -403,7 +413,7 @@ html, body { width:100%; height:100%; overflow:hidden; font-family:'Cormorant Ga
     <div class="glass letter-card">
       <p class="letter-h">My Dearest Husband,</p>
       <p class="letter-b">
-        Happy Birthday HUSBAND. ❤️<br><br>
+        Happy Birthday, my love. ❤️<br><br>
         Every moment spent with you is a treasure — and today, as we celebrate your special day, I want to remind you how much you mean to me.<br><br>
         You are my safe place, my laughter, my home. The way you love me, the way you make ordinary days feel extraordinary — that is something I will never take for granted.<br><br>
         May this birthday be filled with all the happiness and warmth you bring into my world every single day. You deserve the whole universe, and I will spend every day of my life making sure you feel it.
